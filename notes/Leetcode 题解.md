@@ -204,6 +204,30 @@ Output: [1,2,2,3,5,6]
 需要从尾开始遍历，否则在 nums1 上归并得到的值会覆盖还未进行归并比较的值。
 
 ```java
+#My answer
+public void merge(int[] nums1, int m, int[] nums2, int n) {
+        int i = 0, j = 0;
+        while(j <= n - 1 && i <= m - 1){
+            if(nums1[i] <= nums2[j]){
+                i++;
+            }else{
+                // all right element move one position
+                for(int s = m - 1; s >= i; s--){
+                    nums1[s+1] = nums1[s];
+                }
+                nums1[i] = nums2[j];
+                i++;
+                j++;
+                m++;
+            }
+        }
+        while(j <= n - 1){
+            nums1[i] = nums2[j];
+            i++;
+            j++;
+        }        
+}
+
 public void merge(int[] nums1, int m, int[] nums2, int n) {
     int index1 = m - 1, index2 = n - 1;
     int indexMerge = m + n - 1;
