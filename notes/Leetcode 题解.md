@@ -283,6 +283,38 @@ Output:
 题目描述：删除 s 中的一些字符，使得它构成字符串列表 d 中的一个字符串，找出能构成的最长字符串。如果有多个相同长度的结果，返回字典序的最大字符串。
 
 ```java
+# my mind
+public String findLongestWord(String s, List<String> d) {
+        /*
+        **  1. 用一个longestWord 保存当前最长子序列
+        **  2. 对List d中的每个字符串(target)与longestWord 比较，若target.length < longestWord.length || (target.length == longestWord.length && longestWord.Compareto(target) < 0, 则略过该字符串，否则判断该字符串是否满足s的子序列要求(isValid))
+        **  3. isValid(s,target) s.charAt(i) == s.charAt(j) ?
+        ****/
+        String longestWord = "";
+        for(String target : d){
+            int l1 = longestWord.length(), l2 = target.length();
+            if(l2 < l1 || (l1 == l2 && longestWord.compareTo(target) < 0)){
+                continue;
+            }
+            if(isValid(s,target)){
+                longestWord = target;
+            }
+        }
+        return longestWord;
+    }
+    public boolean isValid(String s, String target){
+        int i = 0, j = 0;
+        while(i < s.length() && j < target.length()){
+            if(s.charAt(i) == target.charAt(j)){
+                j++;
+            }
+            i++;
+        }
+        return j == target.length();
+    }
+```
+
+```java
 public String findLongestWord(String s, List<String> d) {
     String longestWord = "";
     for (String target : d) {
